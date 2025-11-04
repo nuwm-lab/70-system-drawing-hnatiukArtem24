@@ -19,7 +19,7 @@ namespace LabWork
             ClientSize = new Size(900, 600);
             ResizeRedraw = true;
 
-            // Уникаємо мерехтіння при перемальовуванні
+       
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.AllPaintingInWmPaint |
                      ControlStyles.UserPaint, true);
@@ -39,7 +39,7 @@ namespace LabWork
             double width = size.Width - 2 * Margin;
             double height = size.Height - 2 * Margin;
 
-            // 1️⃣ Обчислюємо межі по Y
+    
             double ymin = double.MaxValue, ymax = double.MinValue;
             int n = (int)Math.Ceiling((Xmax - Xmin) / Dx) + 1;
             for (int i = 0; i < n; i++)
@@ -64,15 +64,15 @@ namespace LabWork
             using (Font font = new Font("Arial", 10))
             using (Brush textBrush = new SolidBrush(Color.Black))
             {
-                // 2️⃣ Малюємо осі
+        
                 float xAxisY = (float)(size.Height - Margin);
                 float yAxisX = (float)Margin;
                 g.DrawLine(axisPen, yAxisX, Margin, yAxisX, xAxisY); // Y
                 g.DrawLine(axisPen, yAxisX, xAxisY, (float)(size.Width - Margin), xAxisY); // X
 
-                // 3️⃣ Малюємо сам графік
+      
                 PointF? prev = null;
-                int points = Math.Max(200, size.Width / 3); // адаптивна кількість точок
+                int points = Math.Max(200, size.Width / 3); 
                 for (int i = 0; i <= points; i++)
                 {
                     double x = Xmin + i * (Xmax - Xmin) / points;
@@ -86,7 +86,7 @@ namespace LabWork
                     prev = new PointF(sx, sy);
                 }
 
-                // 4️⃣ Малюємо червоні точки кожні Dx
+            
                 using (Brush red = new SolidBrush(Color.Red))
                 {
                     for (double x = Xmin; x <= Xmax + 1e-9; x += Dx)
@@ -98,7 +98,7 @@ namespace LabWork
                     }
                 }
 
-                // 5️⃣ Підписи
+         
                 g.DrawString("X", font, textBrush, size.Width - 45, size.Height - 40);
                 g.DrawString("Y", font, textBrush, 20, 20);
                 g.DrawString("y = (x + cos(2x)) / (x + 2)", font, Brushes.DarkBlue, (float)Margin + 5, 5);
